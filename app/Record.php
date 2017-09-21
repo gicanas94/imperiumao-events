@@ -1,0 +1,20 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Record extends Model
+{
+    protected $guarded = [];
+
+    public function event()
+    {
+        return $this->belongsTo('App\Event')->withTrashed();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User')->withTrashed();
+    }
+}
