@@ -9,7 +9,7 @@
         <form action="{{ route('messages.update', $message->id) }}" method="post">
             {!! csrf_field() !!}
             <div class="message-content">
-                <div id="preview" class="green">
+                <div id="preview" class="{{ $message->class }}">
                     <p id="titlePreview" class="message-title">{{ $message->title }}</p>
                     <p id="contentPreview" class="message-text">{{ $message->content }}</p>
                     <div class="message-author">
@@ -19,7 +19,7 @@
             </div>
             <hr>
             <div class="center-content colors-content">
-                <div class="color green active"></div>
+                <div class="color green"></div>
                 <div class="color red"></div>
                 <div class="color orange"></div>
                 <div class="color blue"></div>
