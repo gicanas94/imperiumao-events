@@ -11,6 +11,7 @@ class Event extends Model
 
     protected $guarded = [];
     protected $dates = ['deleted_at'];
+    protected $availableDate;
 
     public function record()
     {

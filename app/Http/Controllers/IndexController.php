@@ -58,6 +58,7 @@ class IndexController extends Controller
                 $diff = $recordDate->diffInDays($actualDate);
 
                 if ($diff <= $event->stock) {
+                    $event->availableDate = $recordDate->addDays($event->stock);
                     $this->noStockEvents[] = $event;
                 } else {
                     $this->stockEvents[] = $event;
@@ -89,28 +90,30 @@ class IndexController extends Controller
 
     protected function getInProgressEvents()
     {
+        $events = [];
+
+        $lastRecords = Record::where('finished', null)
+                                ->where('suspended', null)
+                                ->where('user_id', '!=', auth()->user()->id)
+                                ->where('from_record', null)
+                                ->get();
+
         $lastUserRecords = Record::where('user_id', auth()->user()->id)
                                     ->where('from_record', '!=', null)
                                     ->get();
 
-        if (count($lastUserRecords) > 0) {
-            foreach ($lastUserRecords as $record) {
-                 $events = Record::where('finished', null)
-                                    ->where('suspended', null)
-                                    ->where('from_record', '!=', $record->from_record)
-                                    ->where('user_id', '!=', auth()->user()->id)
-                                    ->limit(1)
-                                    ->latest()
-                                    ->get();
+        if (count($lastRecords) > 0) {
+            foreach ($lastRecords as $lastRecord) {
+                if (count($lastUserRecords) > 0) {
+                    foreach ($lastUserRecords as $lastUserRecord) {
+                        if ($lastRecord->id != $lastUserRecord->from_record) {
+                            $events[] = $lastRecord;
+                        }
+                    }
+                } else {
+                    $events[] = $lastRecord;
+                }
             }
-        } else {
-            $events = Record::where('finished', null)
-                                ->where('suspended', null)
-                                ->where('from_record', null)
-                                ->where('user_id', '!=', auth()->user()->id)
-                                ->limit(1)
-                                ->latest()
-                                ->get();
         }
 
         return $events;

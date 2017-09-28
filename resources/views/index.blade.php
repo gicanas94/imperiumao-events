@@ -95,7 +95,7 @@
                         <div class="event no-stock">
                             <a class="event-name" href=""><p>{{ $event->name }}</p></a>
                             <div class="event-description">
-                                <p>Puede realizarse cada <b>{{ $event->stock }} días</b></p>
+                                <p>Puedes volver realizar este evento el día <b>{{ date('d/m/Y', strtotime($event->availableDate)) }}</b> a las <b>{{ date('G:i', strtotime($event->availableDate)) }}</b></p>
                             </div>
                         </div>
                     @endforeach
