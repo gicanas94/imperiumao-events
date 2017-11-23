@@ -10,7 +10,7 @@ class AccountController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
 
     public function index()
@@ -31,7 +31,7 @@ class AccountController extends Controller
 
         $user->save();
 
-        $editSuccess = 'La información ha sido actualizado exitosamente.';
+        $editSuccess = 'La información ha sido actualizada exitosamente.';
 
         return redirect()->route('account')->with('editSuccess', $editSuccess);
     }
