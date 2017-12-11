@@ -52,7 +52,9 @@
             <br>
             <div>
                 @if ($record->drop == 1)
-                    <input class="checkbox" type="checkbox" name="drop" checked>Caída de ítems
+                    <input class="checkbox" type="checkbox" name="drop" checked disabled>Caída de ítems
+                @else
+                    <input class="checkbox" type="checkbox" name="drop" disabled>Caída de ítems
                 @endif
             </div>
         </div>

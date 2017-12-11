@@ -84,13 +84,7 @@
                         <div class="inline-content float-left-content">
                             <p><b>Ganador/es: </b>{{ $record->winners }}</p>
                             <p><b>Premio/s: </b>{{ $record->prizes }}</p>
-                            <p><b>Comentarios: </b>
-                                @if ($record->comments == null)
-                                    -
-                                @else
-                                    {{ $record->comments }}
-                                @endif
-                            </p>
+                            <p><b>Comentarios: </b>{{ $record->comments }}</p>
                             <p><b>Estado: </b>
                                 @if ($record->finished == 1)
                                     finalizado

@@ -44,11 +44,17 @@ class UsersController extends Controller
 
         $user['password'] = bcrypt($request->password);
 
-        User::create($user);
-
-        $storeSuccess = 'El usuario ha sido creado exitosamente.';
-
-        return redirect()->route('users')->with('storeSuccess', $storeSuccess);
+        try {
+            User::create($user);
+            $storeSuccess = 'El usuario ha sido creado exitosamente.';
+            if (auth()->user()->username != 'admin') {
+                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' creó el usuario ' . "'" . $user['username'] . "'.</b>";
+                $this->saveLog($log);
+            }
+            return redirect()->route('users')->with('storeSuccess', $storeSuccess);
+        } catch (Exception $e) {
+            return $e;
+        }
     }
 
     public function edit($id)
@@ -71,16 +77,32 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
         }
 
-        $user->save();
-
-        $editSuccess = 'El usuario ha sido actualizado exitosamente.';
-
-        return redirect()->route('users')->with('editSuccess', $editSuccess);
+        try {
+            $user->save();
+            $editSuccess = 'El usuario ha sido actualizado exitosamente.';
+            if (auth()->user()->username != 'admin') {
+                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' editó al usuario ' . "'" . $user->username . "'.</b>";
+                $this->saveLog($log);
+            }
+            return redirect()->route('users')->with('editSuccess', $editSuccess);
+        } catch (Exception $e) {
+            return $e;
+        }
     }
 
     public function destroy(Request $request, $id) {
         if ($request->ajax()) {
             $user = User::find($id);
+
+            try {
+                if (auth()->user()->username != 'admin') {
+                    $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' eliminó al usuario ' . "'" . $user->username . "'.</b>";
+                    $this->saveLog($log);
+                }
+                $user->delete();
+            } catch (Exception $e) {
+                return $e;
+            }
 
             $user->delete();
         }
@@ -95,10 +117,18 @@ class UsersController extends Controller
                 case 0:
                     $user->banned = 1;
                     $user->save();
+                    if (auth()->user()->username != 'admin') {
+                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' bloqueó al usuario ' . "'" . $user->username . "'.</b>";
+                        $this->saveLog($log);
+                    }
                     break;
                 case 1:
                     $user->banned = 0;
                     $user->save();
+                    if (auth()->user()->username != 'admin') {
+                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' desbloqueó al usuario ' . "'" . $user->username . "'.</b>";
+                        $this->saveLog($log);
+                    }
                     break;
             }
         }
@@ -139,5 +169,27 @@ class UsersController extends Controller
         $records = $query->get();
 
         return $records;
+    }
+
+    protected function saveLog($log)
+    {
+        $data = http_build_query(
+            array(
+                'ek' => env('ek'),
+                'nick' => auth()->user()->username,
+                'log' => $log
+            ));
+
+        $url = 'https://inbound.imperiumao.com.ar/ext/eventsapp.php?' . $data;
+
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_exec($ch);
+            curl_close($ch);
+        } catch (Exception $e) {
+            dd($e);
+        }
     }
 }

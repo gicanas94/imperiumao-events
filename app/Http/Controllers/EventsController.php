@@ -31,11 +31,17 @@ class EventsController extends Controller
     {
         $event = $request->except(['_token']);
 
-        Event::create($event);
-
-        $storeSuccess = 'El evento ha sido creado exitosamente.';
-
-        return redirect()->route('events')->with('storeSuccess', $storeSuccess);
+        try {
+            Event::create($event);
+            $storeSuccess = 'El evento ha sido creado exitosamente.';
+            if (auth()->user()->username != 'admin') {
+                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' creó el evento ' . "'" . $event['name'] . "'.</b>";
+                $this->saveLog($log);
+            }
+            return redirect()->route('events')->with('storeSuccess', $storeSuccess);
+        } catch (Exception $e) {
+            return $e;
+        }
     }
 
     public function edit($id)
@@ -57,18 +63,32 @@ class EventsController extends Controller
         $event->gold = $request->gold;
         $event->stock = $request->stock;
 
-        $event->save();
-
-        $editSuccess = 'El evento ha sido actualizado exitosamente.';
-
-        return redirect()->route('events')->with('editSuccess', $editSuccess);
+        try {
+            $event->save();
+            $editSuccess = 'El evento ha sido actualizado exitosamente.';
+            if (auth()->user()->username != 'admin') {
+                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' editó el evento ' . "'" . $event['name'] . "'.</b>";
+                $this->saveLog($log);
+            }
+            return redirect()->route('events')->with('editSuccess', $editSuccess);
+        } catch (Exception $e) {
+            return $e;
+        }
     }
 
     public function destroy(Request $request, $id) {
         if ($request->ajax()) {
             $event = Event::find($id);
 
-            $event->delete();
+            try {
+                if (auth()->user()->username != 'admin') {
+                    $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' eliminó el evento ' . "'" . $event['name'] . "'.</b>";
+                    $this->saveLog($log);
+                }
+                $event->delete();
+            } catch (Exception $e) {
+                return $e;
+            }
         }
     }
 
@@ -81,12 +101,42 @@ class EventsController extends Controller
                 case 0:
                     $event->active = 1;
                     $event->save();
+                    if (auth()->user()->username != 'admin') {
+                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' activó el evento ' . "'" . $event['name'] . "'.</b>";
+                        $this->saveLog($log);
+                    }
                     break;
                 case 1:
                     $event->active = 0;
                     $event->save();
+                    if (auth()->user()->username != 'admin') {
+                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' desactivó el evento ' . "'" . $event['name'] . "'.</b>";
+                        $this->saveLog($log);
+                    }
                     break;
             }
+        }
+    }
+
+    protected function saveLog($log)
+    {
+        $data = http_build_query(
+            array(
+                'ek' => env('ek'),
+                'nick' => auth()->user()->username,
+                'log' => $log
+            ));
+
+        $url = 'https://inbound.imperiumao.com.ar/ext/eventsapp.php?' . $data;
+
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_exec($ch);
+            curl_close($ch);
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 }
