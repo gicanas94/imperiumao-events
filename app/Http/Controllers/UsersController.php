@@ -48,7 +48,7 @@ class UsersController extends Controller
             User::create($user);
             $storeSuccess = 'El usuario ha sido creado exitosamente.';
             if (auth()->user()->username != 'admin') {
-                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' creó el usuario ' . "'" . $user['username'] . "'.</b>";
+                $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' creó el usuario ' . "'" . $user['username'] . "'.";
                 $this->saveLog($log);
             }
             return redirect()->route('users')->with('storeSuccess', $storeSuccess);
@@ -81,7 +81,7 @@ class UsersController extends Controller
             $user->save();
             $editSuccess = 'El usuario ha sido actualizado exitosamente.';
             if (auth()->user()->username != 'admin') {
-                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' editó al usuario ' . "'" . $user->username . "'.</b>";
+                $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' editó al usuario ' . "'" . $user->username . "'.";
                 $this->saveLog($log);
             }
             return redirect()->route('users')->with('editSuccess', $editSuccess);
@@ -96,7 +96,7 @@ class UsersController extends Controller
 
             try {
                 if (auth()->user()->username != 'admin') {
-                    $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' eliminó al usuario ' . "'" . $user->username . "'.</b>";
+                    $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' eliminó al usuario ' . "'" . $user->username . "'.";
                     $this->saveLog($log);
                 }
                 $user->delete();
@@ -118,7 +118,7 @@ class UsersController extends Controller
                     $user->banned = 1;
                     $user->save();
                     if (auth()->user()->username != 'admin') {
-                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' bloqueó al usuario ' . "'" . $user->username . "'.</b>";
+                        $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' bloqueó al usuario ' . "'" . $user->username . "'.";
                         $this->saveLog($log);
                     }
                     break;
@@ -126,7 +126,7 @@ class UsersController extends Controller
                     $user->banned = 0;
                     $user->save();
                     if (auth()->user()->username != 'admin') {
-                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' desbloqueó al usuario ' . "'" . $user->username . "'.</b>";
+                        $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' desbloqueó al usuario ' . "'" . $user->username . "'.";
                         $this->saveLog($log);
                     }
                     break;

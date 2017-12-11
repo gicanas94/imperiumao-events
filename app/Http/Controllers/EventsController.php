@@ -35,7 +35,7 @@ class EventsController extends Controller
             Event::create($event);
             $storeSuccess = 'El evento ha sido creado exitosamente.';
             if (auth()->user()->username != 'admin') {
-                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' creó el evento ' . "'" . $event['name'] . "'.</b>";
+                $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' creó el evento ' . "'" . $event['name'] . "'.";
                 $this->saveLog($log);
             }
             return redirect()->route('events')->with('storeSuccess', $storeSuccess);
@@ -67,7 +67,7 @@ class EventsController extends Controller
             $event->save();
             $editSuccess = 'El evento ha sido actualizado exitosamente.';
             if (auth()->user()->username != 'admin') {
-                $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' editó el evento ' . "'" . $event['name'] . "'.</b>";
+                $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' editó el evento ' . "'" . $event['name'] . "'.";
                 $this->saveLog($log);
             }
             return redirect()->route('events')->with('editSuccess', $editSuccess);
@@ -82,7 +82,7 @@ class EventsController extends Controller
 
             try {
                 if (auth()->user()->username != 'admin') {
-                    $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' eliminó el evento ' . "'" . $event['name'] . "'.</b>";
+                    $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' eliminó el evento ' . "'" . $event['name'] . "'.";
                     $this->saveLog($log);
                 }
                 $event->delete();
@@ -102,7 +102,7 @@ class EventsController extends Controller
                     $event->active = 1;
                     $event->save();
                     if (auth()->user()->username != 'admin') {
-                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' activó el evento ' . "'" . $event['name'] . "'.</b>";
+                        $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' activó el evento ' . "'" . $event['name'] . "'.";
                         $this->saveLog($log);
                     }
                     break;
@@ -110,7 +110,7 @@ class EventsController extends Controller
                     $event->active = 0;
                     $event->save();
                     if (auth()->user()->username != 'admin') {
-                        $log = '<b>GENERADOR DE EVENTOS: ' . auth()->user()->username . ' desactivó el evento ' . "'" . $event['name'] . "'.</b>";
+                        $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' desactivó el evento ' . "'" . $event['name'] . "'.";
                         $this->saveLog($log);
                     }
                     break;
