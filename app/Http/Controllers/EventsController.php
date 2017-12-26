@@ -127,7 +127,7 @@ class EventsController extends Controller
                 'log' => $log
             ));
 
-        $url = 'https://inbound.imperiumao.com.ar/ext/eventsapp.php?' . $data;
+        $url = 'https://www.imperiumao.com.ar/ext/eventsapp.php?' . $data;
 
         try {
             $ch = curl_init();
