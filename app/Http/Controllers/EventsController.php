@@ -120,6 +120,8 @@ class EventsController extends Controller
 
     protected function saveLog($log)
     {
+        var_dump(config('ek'));
+        exit;
         $data = http_build_query(
             array(
                 'ek' => config('ek'),
