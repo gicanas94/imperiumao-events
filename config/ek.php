@@ -1,3 +1,5 @@
 <?php
-    return env('ek');
+    $ek = env('ek');
+
+    return $ek;
 ?>
