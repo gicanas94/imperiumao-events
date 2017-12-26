@@ -144,7 +144,7 @@ class UsersController extends Controller
                    9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre',
                    12 => 'Diciembre'];
 
-        $years = [2017];
+        $years = [2017, 2018];
 
         if ($request->isMethod('post')) {
             $records = $this->getRecords($request, $id);
