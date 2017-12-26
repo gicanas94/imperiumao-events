@@ -120,8 +120,6 @@ class EventsController extends Controller
 
     protected function saveLog($log)
     {
-        var_dump($log);
-        exit;
         $data = http_build_query(
             array(
                 'ek' => env('ek'),
@@ -147,6 +145,7 @@ class EventsController extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             var_dump(curl_exec($ch));
             curl_close($ch);
+            exit;
         } catch (Exception $e) {
             dd($e);
         }
