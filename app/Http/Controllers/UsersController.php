@@ -175,7 +175,7 @@ class UsersController extends Controller
     {
         $data = http_build_query(
             array(
-                'ek' => env('ek'),
+                'ek' => config('ek'),
                 'nick' => auth()->user()->username,
                 'log' => $log
             ));
