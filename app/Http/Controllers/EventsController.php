@@ -129,11 +129,21 @@ class EventsController extends Controller
 
         $url = 'https://www.imperiumao.com.ar/ext/eventsapp.php?' . $data;
 
+        echo "<pre>";
+        echo "DATA:";
+        echo "<br><br>";
+        var_dump($data);
+        echo "<br><br>";
+        echo "URL:";
+        echo "<br><br>";
+        var_dump($url);
+        echo "<br><br>";
+
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_exec($ch);
+            var_dump(curl_exec($ch));
             curl_close($ch);
         } catch (Exception $e) {
             dd($e);
