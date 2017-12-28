@@ -74,19 +74,19 @@
                 <div>
                     <label><b>*</b>Ganador/es</label>
                     <br>
-                    <input id="winnersInput" type="text" name="winners" required>
+                    <textarea id="winnersInput" style="width: 230px" name="winners" rows="3" cols="30"></textarea>
                 </div>
                 <br>
                 <div>
                     <label><b>*</b>Premio/s</label>
                     <br>
-                    <input id="prizesInput" type="text" name="prizes" placeholder="{{ $record->event->gold }}" required>
+                    <textarea id="prizesInput" style="width: 230px" name="prizes" rows="3" cols="30" placeholder="{{ $record->event->gold }}" required></textarea>
                 </div>
                 <br>
                 <div>
                     <label>Comentario adicional</label>
                     <br>
-                    <textarea id="commentsInput" style="width: 230px" name="comments" rows="4" cols="30"></textarea>
+                    <textarea id="commentsInput" style="width: 230px" name="comments" rows="3" cols="30"></textarea>
                 </div>
             </div>
             <div class="inline-content float-left-content">
