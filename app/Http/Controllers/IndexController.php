@@ -31,10 +31,12 @@ class IndexController extends Controller
         $inProgressEvents = $this->getInProgressEvents();
         $lastEvents = $this->getLastEvents();
         $messages = $this->getMessages();
+        $defaultPassword = $this->getDefaultPassword();
 
         return view('index', compact('title', 'stockEvents', 'noStockEvents',
                                     'notActiveEvents', 'notFinishedEvents',
-                                    'inProgressEvents', 'lastEvents', 'messages'));
+                                    'inProgressEvents', 'lastEvents', 'messages',
+                                    'defaultPassword'));
     }
 
     protected function getEvents()
@@ -133,5 +135,11 @@ class IndexController extends Controller
         return Message::where('active', 1)
                         ->orderBy('created_at')
                         ->get();
+    }
+
+    protected function getDefaultPassword()
+    {
+        if (Hash::check('123456', auth()->user()->password)) {
+            return $defaultPassword;
     }
 }

@@ -1,6 +1,14 @@
 @extends('layouts.main')
 
 @section('content')
+    @if (isset($defaultPassword))
+        <div class="message-content">
+            <div class="color red opacity">
+                <p>¡No olvides actualizar tu contraseña!</p>
+            </div>
+        </div>
+    @endif
+
     @if (Auth::check())
         <div class="events-content">
             @if (count($messages) > 0)
