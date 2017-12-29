@@ -7,6 +7,7 @@ use App\Event;
 use App\Record;
 use App\Message;
 use Carbon\Carbon;
+Use Hash;
 
 class IndexController extends Controller
 {
@@ -140,7 +141,7 @@ class IndexController extends Controller
     protected function getDefaultPassword()
     {
         if (Hash::check('123456', auth()->user()->password)) {
-            return $defaultPassword;
+            return $this->defaultPassword = true;
         }
     }
 }
