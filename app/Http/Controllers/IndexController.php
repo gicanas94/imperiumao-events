@@ -141,5 +141,6 @@ class IndexController extends Controller
     {
         if (Hash::check('123456', auth()->user()->password)) {
             return $defaultPassword;
+        }
     }
 }
