@@ -74,7 +74,7 @@
                 <div>
                     <label><b>*</b>Ganador/es</label>
                     <br>
-                    <textarea id="winnersInput" style="width: 230px" name="winners" rows="3" cols="30"></textarea>
+                    <textarea id="winnersInput" style="width: 230px" name="winners" rows="3" cols="30" required></textarea>
                 </div>
                 <br>
                 <div>
