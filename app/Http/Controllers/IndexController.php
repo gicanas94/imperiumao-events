@@ -127,7 +127,7 @@ class IndexController extends Controller
         return Record::where('finished', 1)
                         ->where('from_record', null)
                         ->orderBy('created_at', 'desc')
-                        ->limit(8)
+                        ->limit(16)
                         ->get();
     }
 
