@@ -3,7 +3,7 @@
 @section('content')
     <div class="table-content">
         <h1>EVENTOS</h1>
-        @if (count($events) == 0 && count($trashedEvents) == 0)
+        @if (count($events) == 0)
             <p>Actualmente no hay ningún evento creado...</p>
             <p>¿Qué estás esperando?</p>
         @else
@@ -27,41 +27,46 @@
                                 @endif
                             </td>
 
-                            @if (auth()->user()->power > 1)
-                                <td>
-                                    <form class="table-form" action="{{ route('events.edit', $event->id) }}" method="get">
-                                        {!! csrf_field() !!}
-                                        <button class="small-button edit-button" type="submit">EDITAR</button>
-                                    </form>
+                            <td>
+                                <form class="table-form" action="{{ route('events.edit', $event->id) }}" method="get">
+                                    {!! csrf_field() !!}
+                                    <button class="small-button edit-button" type="submit">EDITAR</button>
+                                </form>
 
-                                    <form class="table-form" action="{{ route('events.state', $event->id) }}" method="post">
-                                        {!! csrf_field() !!}
-                                        @if ($event->active == 1)
-                                            <button id="deactivate" class="small-button deactivate-button" type="submit">DESACTIVAR</button>
-                                        @elseif ($event->active == 0)
-                                            <button id="activate" class="small-button activate-button" type="submit">ACTIVAR</button>
-                                        @endif
-                                    </form>
+                                <form class="table-form" action="{{ route('events.state', $event->id) }}" method="post">
+                                    {!! csrf_field() !!}
+                                    @if ($event->active == 1)
+                                        <button id="deactivate" class="small-button deactivate-button" type="submit">DESACTIVAR</button>
+                                    @elseif ($event->active == 0)
+                                        <button id="activate" class="small-button activate-button" type="submit">ACTIVAR</button>
+                                    @endif
+                                </form>
 
-                                    <form class="table-form" action="{{ route('events.destroy', $event->id) }}" method="post">
-                                        {!! csrf_field() !!}
-                                        <button class="small-button delete-button" type="submit">ELIMINAR</button>
-                                    </form>
-                                </td>
-                            @endif
+                                <form class="table-form" action="{{ route('events.destroy', $event->id) }}" method="post">
+                                    {!! csrf_field() !!}
+                                    <button class="small-button delete-button" type="submit">ELIMINAR</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
-                    
+                </tbody>
+            </table>
+        @endif
+
+        @if (count($trashedEvents) != 0)
+            <hr>
+            <h2>EVENTOS ELIMINADOS</h2>
+            <p>Debajo se encuentra el listado de los eventos eliminados.</p>
+            <p>Puedes restaurar uno con un simple <b>click</b>.</p>
+            <table>
+                <thead>
+                    <th>NOMBRE</th>
+                    <th>ACCIONES</th>
+                </thead>
+                <tbody>
                     @foreach ($trashedEvents as $trashedEvent)
                         <tr>
                             <td>{{ $trashedEvent->name }}</td>
-                            <td>
-                                @if ($trashedEvent->stock != 0)
-                                    {{ $trashedEvent->stock }} días
-                                @else
-                                    -
-                                @endif
-                            </td>
                             <td>
                                 <form class="table-form" action="{{ route('events.restore', $trashedEvent->id) }}" method="post">
                                     {!! csrf_field() !!}

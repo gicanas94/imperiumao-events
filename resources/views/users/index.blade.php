@@ -3,7 +3,7 @@
 @section('content')
     <div class="table-content">
         <h1>USUARIOS</h1>
-        @if (count($users) == 0 && count($trashedUsers) == 0)
+        @if (count($users) == 0)
             <p>Actualmente no hay ningún usuario creado...</p>
             <p>Puedes registrar uno si quieres.</p>
         @else
@@ -51,11 +51,24 @@
                             </td>
                         </tr>
                     @endforeach
+                </tbody>
+            </table>
+        @endif
 
+        @if (count($trashedUsers) != 0 && auth()->user()->power > 2)
+            <hr>
+            <h2>USUARIOS ELIMINADOS</h2>
+            <p>A continuación se encuentra el listado de los usuarios eliminados.</p>
+            <p>Si estás seguro de lo que haces, puedes restaurar uno.</p>
+            <table>
+                <thead>
+                    <th>NOMBRE</th>
+                    <th>ACCIONES</th>
+                </thead>
+                <tbody>
                     @foreach ($trashedUsers as $trashedUser)
                         <tr>
                             <td>{{ $trashedUser->username }}</td>
-                            <td>{{ $trashedUser->power }}</td>
                             <td>
                                 @if (auth()->user()->power > 0)
                                     <form class="table-form" action="{{ route('users.records', $trashedUser->id) }}" method="get">

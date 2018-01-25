@@ -161,7 +161,7 @@ class UsersController extends Controller
 
     public function records(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::where('id', $id)->withTrashed()->first();
         $title = 'Registros de ' . $user->username;
         $recordColors = $this->recordColors;
         $months = [1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
