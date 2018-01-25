@@ -3,7 +3,7 @@
 @section('content')
     <div class="table-content">
         <h1>EVENTOS</h1>
-        @if (count($events) === 0)
+        @if (count($events) == 0 && count($trashedEvents) == 0)
             <p>Actualmente no hay ningún evento creado...</p>
             <p>¿Qué estás esperando?</p>
         @else
@@ -49,6 +49,25 @@
                                     </form>
                                 </td>
                             @endif
+                        </tr>
+                    @endforeach
+                    
+                    @foreach ($trashedEvents as $trashedEvent)
+                        <tr>
+                            <td>{{ $trashedEvent->name }}</td>
+                            <td>
+                                @if ($trashedEvent->stock != 0)
+                                    {{ $trashedEvent->stock }} días
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                <form class="table-form" action="{{ route('events.restore', $trashedEvent->id) }}" method="post">
+                                    {!! csrf_field() !!}
+                                    <button class="small-button restore-button" type="submit">RESTAURAR</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

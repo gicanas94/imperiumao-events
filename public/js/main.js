@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
 //------------------------------------------------------------------------------
 
     $('#finishEventAlertDiv').hide();
@@ -18,7 +18,7 @@ $(document).ready(function() {
         var url = form.attr('action');
 
         $.post(url, form.serialize(), function(result) {
-            row.fadeOut();
+            location.reload();
         });
     });
 

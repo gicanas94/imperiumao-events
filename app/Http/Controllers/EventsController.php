@@ -18,13 +18,19 @@ class EventsController extends Controller
     {
         $title = 'Eventos';
         $events = $this->getEvents();
+        $trashedEvents = $this->getTrashedEvents();
 
-        return view('events.index', compact('title', 'events'));
+        return view('events.index', compact('title', 'events', 'trashedEvents'));
     }
 
     protected function getEvents()
     {
         return Event::orderBy('name')->get();
+    }
+
+    protected function getTrashedEvents()
+    {
+        return Event::onlyTrashed()->orderBy('name')->get();
     }
 
     public function store(StoreEventRequest $request)
@@ -89,6 +95,23 @@ class EventsController extends Controller
             } catch (Exception $e) {
                 return $e;
             }
+        }
+    }
+
+    public function restore(Request $request, $id) {
+        $event = Event::where('id', $request->id)
+                        ->withTrashed()
+                        ->first();
+
+        try {
+            if (auth()->user()->username != 'admin') {
+                $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' restauró al evento ' . "'" . $event->name . "'.";
+                $this->saveLog($log);
+            }
+            $event->restore();
+            return back();
+        } catch (Exception $e) {
+            return $e;
         }
     }
 

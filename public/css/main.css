@@ -127,6 +127,11 @@ button,
   .delete-button:hover {
     background-color: #f23939; }
 
+.restore-button {
+  background-color: #D8D8D8; }
+  .restore-button:hover {
+    background-color: #b2b2b2; }
+
 .disabled-button {
   background-color: #7e7e7e; }
   .disabled-button:hover {

@@ -3,7 +3,7 @@
 @section('content')
     <div class="table-content">
         <h1>USUARIOS</h1>
-        @if (count($users) == 0)
+        @if (count($users) == 0 && count($trashedUsers) == 0)
             <p>Actualmente no hay ningún usuario creado...</p>
             <p>Puedes registrar uno si quieres.</p>
         @else
@@ -46,6 +46,28 @@
                                     <form class="table-form" action="{{ route('users.destroy', $user->id) }}" method="post">
                                         {!! csrf_field() !!}
                                         <button class="small-button delete-button" type="submit">ELIMINAR</button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    @foreach ($trashedUsers as $trashedUser)
+                        <tr>
+                            <td>{{ $trashedUser->username }}</td>
+                            <td>{{ $trashedUser->power }}</td>
+                            <td>
+                                @if (auth()->user()->power > 0)
+                                    <form class="table-form" action="{{ route('users.records', $trashedUser->id) }}" method="get">
+                                        {!! csrf_field() !!}
+                                        <button class="small-button records-button" type="submit">REGISTROS</button>
+                                    </form>
+                                @endif
+
+                                @if (auth()->user()->power > 2)
+                                    <form class="table-form" action="{{ route('users.restore', $trashedUser->id) }}" method="post">
+                                        {!! csrf_field() !!}
+                                        <button class="small-button restore-button" type="submit">RESTAURAR</button>
                                     </form>
                                 @endif
                             </td>

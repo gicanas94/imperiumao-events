@@ -16,7 +16,9 @@ class AdminAccount
      */
     public function handle($request, Closure $next)
     {
-        $user = User::find($request->id);
+        $user = User::where('id', $request->id)
+                        ->withTrashed()
+                        ->first();
 
         if ($user->power == 4) {
             return back();

@@ -61,7 +61,7 @@
                 </div>
                 <br>
                 <div>
-                    <input class="checkbox" type="checkbox" name="drop" {{ $record->drop === 1 ? 'checked' : '' }}>Caída de ítems
+                    <input class="checkbox" type="checkbox" name="drop" {{ $record->drop == 1 ? 'checked' : '' }}>Caída de ítems
                 </div>
                 <hr>
                 <input type="hidden" name="from_record" value="{{ $record->id }}">

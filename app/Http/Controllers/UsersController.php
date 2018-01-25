@@ -26,13 +26,23 @@ class UsersController extends Controller
     {
         $title = 'Usuarios';
         $users = $this->getUsers();
+        $trashedUsers = $this->getTrashedUsers();
 
-        return view('users.index', compact('title', 'users'));
+        return view('users.index', compact('title', 'users', 'trashedUsers'));
     }
 
     protected function getUsers()
     {
         return User::where('id', '!=', 1)
+                        ->orderBy('power', 'desc')
+                        ->orderBy('username')
+                        ->get();
+    }
+
+    protected function getTrashedUsers()
+    {
+        return User::onlyTrashed()
+                        ->where('id', '!=', 1)
                         ->orderBy('power', 'desc')
                         ->orderBy('username')
                         ->get();
@@ -103,8 +113,23 @@ class UsersController extends Controller
             } catch (Exception $e) {
                 return $e;
             }
+        }
+    }
 
-            $user->delete();
+    public function restore(Request $request, $id) {
+        $user = User::where('id', $request->id)
+                        ->withTrashed()
+                        ->first();
+
+        try {
+            if (auth()->user()->username != 'admin') {
+                $log = '<b>GENERADOR DE EVENTOS:</b> ' . auth()->user()->username . ' restauró al usuario ' . "'" . $user->username . "'.";
+                $this->saveLog($log);
+            }
+            $user->restore();
+            return back();
+        } catch (Exception $e) {
+            return $e;
         }
     }
 

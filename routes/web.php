@@ -19,19 +19,21 @@ Route::get('', 'IndexController@index')->name('index');
 
 Route::get('users', 'UsersController@index')->name('users')->middleware(['power1']);
 Route::post('users', 'UsersController@store')->middleware(['power3']);
-Route::post('users/destroy/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController@destroy'])->middleware(['power3', 'adminAccount']);
-Route::post('users/state/{id}', ['as' => 'users.state', 'uses' => 'UsersController@state'])->middleware(['power3', 'adminAccount']);
-Route::get('users/records/{id}', ['as' => 'users.records', 'uses' => 'UsersController@records'])->middleware(['power1', 'adminAccount']);
-Route::post('users/records/{id}', ['as' => 'users.records', 'uses' => 'UsersController@records'])->middleware(['power1', 'adminAccount']);
 Route::get('users/edit/{id}', ['as' => 'users.edit', 'uses' => 'UsersController@edit'])->middleware(['power3', 'adminAccount']);
 Route::post('users/update/{id}', ['as' => 'users.update', 'uses' => 'UsersController@update'])->middleware(['power3', 'adminAccount']);
+Route::get('users/records/{id}', ['as' => 'users.records', 'uses' => 'UsersController@records'])->middleware(['power1', 'adminAccount']);
+Route::post('users/records/{id}', ['as' => 'users.records', 'uses' => 'UsersController@records'])->middleware(['power1', 'adminAccount']);
+Route::post('users/state/{id}', ['as' => 'users.state', 'uses' => 'UsersController@state'])->middleware(['power3', 'adminAccount']);
+Route::post('users/destroy/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController@destroy'])->middleware(['power3', 'adminAccount']);
+Route::post('users/restore/{id}', ['as' => 'users.restore', 'uses' => 'UsersController@restore'])->middleware(['power3', 'adminAccount']);
 
 Route::get('events', 'EventsController@index')->name('events')->middleware(['power2']);
 Route::post('events', 'EventsController@store')->middleware(['power2']);
-Route::post('events/destroy/{id}', ['as' => 'events.destroy', 'uses' => 'EventsController@destroy'])->middleware(['power2']);
-Route::post('events/state/{id}', ['as' => 'events.state', 'uses' => 'EventsController@state'])->middleware(['power2']);
 Route::get('events/edit/{id}', ['as' => 'events.edit', 'uses' => 'EventsController@edit'])->middleware(['power2']);
 Route::post('events/update/{id}', ['as' => 'events.update', 'uses' => 'EventsController@update'])->middleware(['power2']);
+Route::post('events/state/{id}', ['as' => 'events.state', 'uses' => 'EventsController@state'])->middleware(['power2']);
+Route::post('events/destroy/{id}', ['as' => 'events.destroy', 'uses' => 'EventsController@destroy'])->middleware(['power2']);
+Route::post('events/restore/{id}', ['as' => 'events.restore', 'uses' => 'EventsController@restore'])->middleware(['power2']);
 
 Route::get('startevent/{id}', 'StartEventController@index')->name('startevent')->middleware(['eventIsDeactivated']);
 Route::post('startevent/start/{id}', ['as' => 'startEvent.start', 'uses' => 'StartEventController@start'])->middleware(['eventIsDeactivated']);
@@ -46,7 +48,7 @@ Route::post('account/update', ['as' => 'account.update', 'uses' => 'AccountContr
 
 Route::get('messages', 'MessagesController@index')->name('messages')->middleware(['power3']);
 Route::post('messages', 'MessagesController@store')->middleware(['power3']);
-Route::post('messages/destroy/{id}', ['as' => 'messages.destroy', 'uses' => 'MessagesController@destroy'])->middleware(['power3']);
-Route::post('messages/state/{id}', ['as' => 'messages.state', 'uses' => 'MessagesController@state'])->middleware(['power3']);
 Route::get('messages/edit/{id}', ['as' => 'messages.edit', 'uses' => 'MessagesController@edit'])->middleware(['power3']);
 Route::post('messages/update/{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update'])->middleware(['power3']);
+Route::post('messages/state/{id}', ['as' => 'messages.state', 'uses' => 'MessagesController@state'])->middleware(['power3']);
+Route::post('messages/destroy/{id}', ['as' => 'messages.destroy', 'uses' => 'MessagesController@destroy'])->middleware(['power3']);

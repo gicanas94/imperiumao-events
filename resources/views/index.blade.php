@@ -84,7 +84,7 @@
                         <div class="event stock">
                             <a class="event-name" href="{{ route('startevent', $event->id) }}"><p>{{ $event->name }}</p></a>
                             <div class="event-description">
-                                @if ($event->stock === 0)
+                                @if ($event->stock == 0)
                                     <p>Sin límite de stock</p>
                                 @else
                                     <p>Puede realizarse cada <b>{{ $event->stock }} días</b></p>
