@@ -33,11 +33,12 @@ class IndexController extends Controller
         $lastEvents = $this->getLastEvents();
         $messages = $this->getMessages();
         $defaultPassword = $this->getDefaultPassword();
+        $monthEvents = $this->getMonthEvents();
 
         return view('index', compact('title', 'stockEvents', 'noStockEvents',
                                     'notActiveEvents', 'notFinishedEvents',
                                     'inProgressEvents', 'lastEvents', 'messages',
-                                    'defaultPassword'));
+                                    'defaultPassword', 'monthEvents'));
     }
 
     protected function getEvents()
@@ -143,5 +144,16 @@ class IndexController extends Controller
         if (Hash::check('123456', auth()->user()->password)) {
             return $this->defaultPassword = true;
         }
+    }
+
+    protected function getMonthEvents()
+    {
+        $currentMonth = date('m');
+        $events = Record::whereRaw('MONTH(created_at) = ?',[$currentMonth])
+            ->where('from_record', null)
+            ->where('finished', 1)
+            ->get();
+
+        return $events;
     }
 }

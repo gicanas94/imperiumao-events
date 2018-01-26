@@ -145,6 +145,7 @@
             @endif
 
             <hr>
+            <p class="center-content">Se realizaron <b>{{ count($monthEvents) }}</b> eventos durante el mes.</p>
             <p class="credits">Plataforma desarrollada por <a href="https://github.com/gicanas94">Gabriel Ignacio Cañas</a> para <a href="http://www.imperiumao.com.ar">ImperiumAO</a>.</p>
         </div>
     @endif
