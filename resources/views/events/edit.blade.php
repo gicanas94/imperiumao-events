@@ -29,6 +29,12 @@
                 </div>
                 <br>
                 <div>
+                    <label><b>*</b>Mapa/s</label>
+                    <br>
+                    <input class="{{ $errors->has('maps') ? 'form-error-content' : '' }}" type="text" name="maps" value="{{ old('maps', $event->maps) }}" required>
+                </div>
+                <br>
+                <div>
                     <label><b>*</b>Oro a entregar</label>
                     <br>
                     <input class="{{ $errors->has('gold') ? 'form-error-content' : '' }}" type="text" name="gold" value="{{ old('gold', $event->gold) }}" required>
@@ -45,7 +51,7 @@
                 <div>
                     <label>Descripción</label>
                     <br>
-                    <textarea class="{{ $errors->has('description') ? 'form-error-content' : '' }}" name="description" rows="9" cols="30">{{ old('description', $event->description) }}</textarea>
+                    <textarea class="{{ $errors->has('description') ? 'form-error-content' : '' }}" name="description" rows="12" cols="30">{{ old('description', $event->description) }}</textarea>
                 </div>
                 <hr>
                 <button class="large-button" type="submit">GUARDAR</button>

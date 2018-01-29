@@ -31,19 +31,19 @@
                 <div>
                     <label>Participantes</label>
                     <br>
-                    <input type="text" name="participants" value="{{ $record->participants }}">
+                    <input type="text" name="participants" value="{{ $record->participants }}" required>
                 </div>
                 <br>
                 <div>
                     <label>Niveles</label>
                     <br>
-                    <input type="text" name="levels" value="{{ $record->levels }}">
+                    <input type="text" name="levels" value="{{ $record->levels }}" required>
                 </div>
                 <br>
                 <div>
                     <label>Inscripción</label>
                     <br>
-                    <input type="text" name="inscription" value="{{ $record->inscription }}">
+                    <input type="text" name="inscription" value="{{ $record->inscription }}" required>
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                 <div>
                     <label>Mapa/s</label>
                     <br>
-                    <input type="text" name="maps" value="{{ $record->maps }}">
+                    <input type="text" name="maps" value="{{ $record->maps }}" required>
                 </div>
                 <br>
                 <div>

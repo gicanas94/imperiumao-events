@@ -3,6 +3,11 @@
 @section('content')
     <div class="content">
         <h1>{{ strtoupper($record->event->name) }}</h1>
+        @if ($record->event->description != null)
+            <div class="event-description-content">
+                <p>{{ $record->event->description }}</p>
+            </div>
+        @endif
         <hr>
         <h3>INICIO DEL EVENTO...</h3>
         <div class="inline-content float-left-content">

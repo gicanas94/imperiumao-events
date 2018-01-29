@@ -66,6 +66,7 @@ class EventsController extends Controller
         $event->description = $request->description;
         $event->levels = $request->levels;
         $event->inscription = $request->inscription;
+        $event->maps = $request->maps;
         $event->gold = $request->gold;
         $event->stock = $request->stock;
 

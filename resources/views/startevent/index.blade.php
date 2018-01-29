@@ -49,7 +49,7 @@
                 <div>
                     <label><b>*</b>Mapa/s</label>
                     <br>
-                    <input type="text" name="maps" required>
+                    <input type="text" name="maps" placeholder="{{ $event->maps }}" required>
                 </div>
                 <br>
                 <div>
