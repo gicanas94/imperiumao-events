@@ -1,5 +1,3 @@
-{{ dd($inProgressEvents) }}
-
 @extends('layouts.main')
 
 @section('content')
