@@ -44,7 +44,7 @@
                                 <a class="event-name" href="{{ route('progress', $inProgressEvent->id) }}"><p>{{ $inProgressEvent->event->name }}</p></a>
                                 <div class="event-description">
                                     <p><b>Inicio: </b>{{ date('d/m/Y', strtotime($inProgressEvent->created_at)) }} a las {{ date('G:i', strtotime($inProgressEvent->created_at)) }}</p>
-                                    <p style="border-top: none"><b>Organiza: </b>{{ $inProgressEvent->organizers }}</p>
+                                    <p style="border-top: none"><b>Organizador: </b>{{ $inProgressEvent->user->username }}</p>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <a class="event-name" href="{{ route('progress', $inProgressEvent->id) }}"><p>{{ $inProgressEvent->event->name }}</p></a>
                             <div class="event-description">
                                 <p><b>Inicio: </b>{{ date('d/m/Y', strtotime($inProgressEvent->created_at)) }} a las {{ date('G:i', strtotime($inProgressEvent->created_at)) }}</p>
-                                <p style="border-top: none"><b>Organiza: </b>{{ $inProgressEvent->organizers }}</p>
+                                <p style="border-top: none"><b>Organizador: </b>{{ $inProgressEvent->user->username }}</p>
                             </div>
                         </div>
                     </div>
