@@ -24,21 +24,21 @@ class IndexController extends Controller
         $title = 'Inicio';
 
         $this->getEvents();
-
         $stockEvents = $this->stockEvents;
         $noStockEvents = $this->noStockEvents;
         $notActiveEvents = $this->getNotActiveEvents();
-        $notFinishedEvents = $this->getNotFinishedEvents();
-        $inProgressEvents = $this->getInProgressEvents();
+        $notFinishedEvent = $this->getNotFinishedEvent();
+        $inProgressEvent = $this->getInProgressEvent();
+        $lastUserRecord = $this->getLastUserRecord();
         $lastEvents = $this->getLastEvents();
         $messages = $this->getMessages();
         $defaultPassword = $this->getDefaultPassword();
         $monthEvents = $this->getMonthEvents();
 
         return view('index', compact('title', 'stockEvents', 'noStockEvents',
-                                    'notActiveEvents', 'notFinishedEvents',
-                                    'inProgressEvents', 'lastEvents', 'messages',
-                                    'defaultPassword', 'monthEvents'));
+                                    'notActiveEvents', 'notFinishedEvent',
+                                    'inProgressEvent','lastEvents', 'lastUserRecord',
+                                    'messages', 'defaultPassword', 'monthEvents'));
     }
 
     protected function getEvents()
@@ -75,52 +75,36 @@ class IndexController extends Controller
 
     protected function getNotActiveEvents()
     {
-        $events = Event::where('active', 0)
+        return Event::where('active', 0)
                             ->orderBy('name')
                             ->get();
-
-        return $events;
     }
 
-    protected function getNotFinishedEvents()
+    protected function getNotFinishedEvent()
     {
-        $events = Record::where('user_id', auth()->user()->id)
+        return Record::where('user_id', auth()->user()->id)
                             ->where('finished', null)
                             ->where('suspended', null)
-                            ->get();
-
-        return $events;
+                            ->orderBy('id', 'desc')
+                            ->first();
     }
 
-    protected function getInProgressEvents()
+    protected function getInProgressEvent()
     {
-        $events = [];
-
-        $lastRecords = Record::where('finished', null)
+        return Record::where('finished', null)
                                 ->where('suspended', null)
                                 ->where('user_id', '!=', auth()->user()->id)
                                 ->where('from_record', null)
-                                ->get();
+                                ->orderBy('id', 'desc')
+                                ->first();
+    }
 
-        $lastUserRecords = Record::where('user_id', auth()->user()->id)
+    protected function getLastUserRecord()
+    {
+        return Record::where('user_id', auth()->user()->id)
                                     ->where('from_record', '!=', null)
-                                    ->get();
-
-        if (count($lastRecords) > 0) {
-            foreach ($lastRecords as $lastRecord) {
-                if (count($lastUserRecords) > 0) {
-                    foreach ($lastUserRecords as $lastUserRecord) {
-                        if ($lastRecord->id != $lastUserRecord->from_record) {
-                            $events[] = $lastRecord;
-                        }
-                    }
-                } else {
-                    $events[] = $lastRecord;
-                }
-            }
-        }
-
-        return $events;
+                                    ->orderBy('id', 'desc')
+                                    ->first();
     }
 
     protected function getLastEvents()
@@ -149,11 +133,10 @@ class IndexController extends Controller
     protected function getMonthEvents()
     {
         $currentMonth = date('m');
-        $events = Record::whereRaw('MONTH(created_at) = ?',[$currentMonth])
+
+        return Record::whereRaw('MONTH(created_at) = ?',[$currentMonth])
             ->where('from_record', null)
             ->where('finished', 1)
             ->get();
-
-        return $events;
     }
 }

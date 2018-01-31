@@ -27,56 +27,92 @@
                 @endforeach
             @endif
 
-            @if (count($inProgressEvents) > 0)
-                <hr>
-                <div class="events">
-                    <h2>Eventos en curso...</h2>
-                    @foreach ($inProgressEvents as $record)
+            @if ($inProgressEvent != null)
+                @if ($lastUserRecord != null)
+                    @if ($inProgressEvent->id != $lastUserRecord->from_record)
+                        <hr>
+                        <div class="events">
+                            <h2>Eventos en curso...</h2>
+                            <div class="event in-progress">
+                                <div class="event-server">
+                                    @foreach (config('servers') as $id => $name)
+                                        @if ($inProgressEvent->server == $id)
+                                            {{ $name }}
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <a class="event-name" href="{{ route('progress', $inProgressEvent->id) }}"><p>{{ $inProgressEvent->event->name }}</p></a>
+                                <div class="event-description">
+                                    <p><b>Inicio: </b>{{ date('d/m/Y', strtotime($inProgressEvent->created_at)) }} a las {{ date('G:i', strtotime($inProgressEvent->created_at)) }}</p>
+                                    <p style="border-top: none"><b>Organiza: </b>{{ $inProgressEvent->organizers }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($inProgressEvent->id == $lastUserRecord->from_record && $notFinishedEvent == null)
+                        <hr>
+                        <div class="events">
+                            <h2>Eventos en curso...</h2>
+                            <div class="event in-progress">
+                                <div class="event-server">
+                                    @foreach (config('servers') as $id => $name)
+                                        @if ($inProgressEvent->server == $id)
+                                            {{ $name }}
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <a class="event-name" href=""><p>{{ $inProgressEvent->event->name }}</p></a>
+                                <div class="event-description">
+                                    <p>Ya participaste de este evento.</p>
+                                    <p style="border-top: none"><b>Organizador: </b>{{ $inProgressEvent->user->username }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <hr>
+                    <div class="events">
+                        <h2>Eventos en curso...</h2>
                         <div class="event in-progress">
                             <div class="event-server">
                                 @foreach (config('servers') as $id => $name)
-                                    @if ($record->server == $id)
+                                    @if ($inProgressEvent->server == $id)
                                         {{ $name }}
                                     @endif
                                 @endforeach
                             </div>
-                            <a class="event-name" href="{{ route('progress', $record->id) }}"><p>{{ $record->event->name }}</p></a>
+                            <a class="event-name" href="{{ route('progress', $inProgressEvent->id) }}"><p>{{ $inProgressEvent->event->name }}</p></a>
                             <div class="event-description">
-                                <p><b>Inicio: </b>{{ date('d/m/Y', strtotime($record->created_at)) }} a las {{ date('G:i', strtotime($record->created_at)) }}</p>
-                                <p style="border-top: none"><b>Organiza: </b>{{ $record->organizers }}</p>
+                                <p><b>Inicio: </b>{{ date('d/m/Y', strtotime($inProgressEvent->created_at)) }} a las {{ date('G:i', strtotime($inProgressEvent->created_at)) }}</p>
+                                <p style="border-top: none"><b>Organiza: </b>{{ $inProgressEvent->organizers }}</p>
                             </div>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endif
             @endif
-        </div>
 
-        <div class="events-content">
-            @if (count($notFinishedEvents) > 0)
+            @if ($notFinishedEvent != null)
                 <hr>
                 <div class="events">
                     <h2>Eventos sin finalizar...</h2>
-                    @foreach ($notFinishedEvents as $record)
-                        <div class="event not-finished">
-                            <div class="event-server">
-                                @foreach (config('servers') as $id => $name)
-                                    @if ($record->server == $id)
-                                        {{ $name }}
-                                    @endif
-                                @endforeach
-                            </div>
-                            <a class="event-name" href="{{ route('finishevent', $record->id) }}"><p>{{ $record->event->name }}</p></a>
-                            <div class="event-description">
-                                <p>Iniciaste este evento el día <b>{{ date('d/m/Y', strtotime($record->created_at)) }}</b> a las <b>{{ date('G:i', strtotime($record->created_at)) }}</b></p>
-                            </div>
+                    <div class="event not-finished">
+                        <div class="event-server">
+                            @foreach (config('servers') as $id => $name)
+                                @if ($notFinishedEvent->server == $id)
+                                    {{ $name }}
+                                @endif
+                            @endforeach
                         </div>
-                    @endforeach
+                        <a class="event-name" href="{{ route('finishevent', $notFinishedEvent->id) }}"><p>{{ $notFinishedEvent->event->name }}</p></a>
+                        <div class="event-description">
+                            <p>Iniciaste este evento el día <b>{{ date('d/m/Y', strtotime($notFinishedEvent->created_at)) }}</b> a las <b>{{ date('G:i', strtotime($notFinishedEvent->created_at)) }}</b></p>
+                        </div>
+                    </div>
                 </div>
             @endif
-        </div>
 
-        <div class="events-content">
-            @if (! empty($stockEvents) && count($notFinishedEvents) == 0)
+            @if (count($stockEvents) > 0 && $notFinishedEvent == null && $inProgressEvent == null)
                 <hr>
                 <div class="events">
                     <h2>Eventos con stock...</h2>
@@ -95,7 +131,7 @@
                 </div>
             @endif
 
-            @if (! empty($noStockEvents))
+            @if (count($noStockEvents) > 0)
                 <hr>
                 <div class="events">
                     <h2>Eventos sin stock...</h2>
@@ -145,7 +181,7 @@
             @endif
 
             <hr>
-            <p class="center-content">Se realizaron <b>{{ count($monthEvents) }}</b> eventos durante el mes.</p>
+            <p class="center-content">Se {{ count($monthEvents) > 1 ? 'realizaron' : 'realizó' }} <b>{{ count($monthEvents) }}</b> eventos durante el mes.</p>
             <p class="credits">Plataforma desarrollada por <a href="https://github.com/gicanas94">Gabriel Ignacio Cañas</a> para <a href="http://www.imperiumao.com.ar">ImperiumAO</a>.</p>
         </div>
     @endif
