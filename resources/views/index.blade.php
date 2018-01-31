@@ -27,7 +27,7 @@
                 @endforeach
             @endif
 
-            @if ($inProgressEvent != null)
+            @if ($inProgressEvent != null && $notFinishedEvent == null)
                 @if ($lastUserRecord != null)
                     @if ($inProgressEvent->id != $lastUserRecord->from_record)
                         <hr>
@@ -50,7 +50,7 @@
                         </div>
                     @endif
 
-                    @if ($inProgressEvent->id == $lastUserRecord->from_record && $notFinishedEvent == null)
+                    @if ($inProgressEvent->id == $lastUserRecord->from_record)
                         <hr>
                         <div class="events">
                             <h2>Eventos en curso...</h2>
