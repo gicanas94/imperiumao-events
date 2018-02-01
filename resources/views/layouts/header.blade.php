@@ -18,6 +18,8 @@
 
                 <li><a href="{{ route('account') }}">MI CUENTA</a></li>
 
+                <li><a href="{{ route('stats') }}">ESTADÍSTICAS</a></li>
+
                 <li><a href="{{ route('logout') }}">SALIR</a></li>
             @endif
         </ul>

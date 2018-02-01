@@ -1,0 +1,525 @@
+@import 'variables'
+
+//------------------------------------------------------------------------------
+
+*
+    box-sizing: border-box
+    transition: 0.2s ease
+    -moz-transition: 0.2s ease
+    -webkit-transition: 0.2s ease
+    -o-transition: 0.2s ease
+
+//------------------------------------------------------------------------------
+
+.container
+    width: 100%
+    max-width: 1440px
+    margin: auto
+
+//------------------------------------------------------------------------------
+
+body
+    font-family: 'Raleway', sans-serif
+    font-size: 18px
+    margin: 0
+    background: linear-gradient(#F8F8F8, darken(#F8F8F8, 15))
+
+//------------------------------------------------------------------------------
+
+hr
+    margin: 30px 0
+    clear: both
+
+.events-hr
+    margin: 30px 0 0 0
+
+//------------------------------------------------------------------------------
+
+form
+    width: 100%
+    margin: auto
+    display: inline-block
+
+.half-form
+    width: 50%
+    float: left
+
+.table-form
+    width: auto
+
+//------------------------------------------------------------------------------
+
+select
+    width: 40%
+
+.records-select, .stats-select
+    width: 20%
+    margin-right: 10px
+
+input,
+textarea,
+select
+    padding: 3px
+    font-size: 1em
+    &:focus
+        transform: scale(1.02)
+        -moz-transform: scale(1.02)
+        -webkit-transform: scale(1.02)
+        -o-transform: scale(1.02)
+        -ms-transform: scale(1.02)
+
+textarea
+    width: 100%
+    resize: none
+
+.checkbox
+    width: 15px
+    height: 15px
+    margin-right: 5px
+
+button,
+.a-button
+    color: #000000
+    text-decoration: none
+    font-weight: bold
+    font-family: sans-serif
+    background-color: #D8D8D8
+    border: 1px solid #000000
+    margin: auto
+    &:hover
+        background-color: darken(#D8D8D8, 15)
+
+.a-button
+    display: block
+    float: left
+
+.large-button
+    font-size: 1.2em
+    padding: 15px 30px
+
+.medium-button
+    font-size: 1em
+    padding: 10px 25px
+
+.small-button
+    width: 100px
+    padding: 8px 10px
+    font-size: 0.8em
+    border: 1px solid #000000
+
+.records-button, .stats-button
+    background-color: $pink
+    &:hover
+        background-color: darken($pink, 15)
+
+.edit-button
+    background-color: $lightblue
+    &:hover
+        background-color: darken($lightblue, 15)
+
+.activate-button,
+.unban-button
+    background-color: $green
+    &:hover
+        background-color: darken($green, 15)
+
+.deactivate-button,
+.ban-button,
+.suspend-button
+    background-color: $orange
+    &:hover
+        background-color: darken($orange, 15)
+
+.delete-button
+    background-color: $red
+    &:hover
+        background-color: darken($red, 15)
+
+.restore-button
+    background-color: $lightgrey
+    &:hover
+        background-color: darken($lightgrey, 15)
+
+.disabled-button
+    background-color: darken($grey, 15)
+    &:hover
+        background-color: darken($grey, 15)
+
+//------------------------------------------------------------------------------
+
+table
+    width: 100%
+    text-align: center
+    th
+        background-color: darken($lightyellow, 15)
+        border: 1px solid darken($lightyellow, 50)
+    tbody
+        background-color: $lightyellow
+        td
+            border: 1px solid darken($lightyellow, 50)
+            padding: 5px
+        tr
+            &:hover
+                background-color: lighten($lightyellow, 5)
+
+    .message-td
+        text-overflow: ellipsis
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+header
+    width: 100%
+    text-align: center
+    margin-bottom: 40px
+    nav
+        ul,
+        li
+            list-style: none
+            padding: 0
+            margin: 0
+            display: block
+            @media screen and (min-width: $medium-media)
+                display: inline-block
+                margin: 0 5px
+        a
+            padding: 10px
+            font-size: 1em
+            text-decoration: none
+            font-weight: bold
+            color: #000000
+            background-color: #D8D8D8
+            display: block
+            border-bottom: 1px solid #000000
+            border-top: 1px solid #FFFFFF
+            box-shadow: 0 1px 1px 1px #888888
+            text-overflow: ellipsis
+            overflow: hidden
+            white-space: nowrap
+            &:hover
+                background-color: darken(#D8D8D8, 15)
+            @media screen and (min-width: $medium-media)
+                width: 110px
+                padding: 15px 2px
+                border: 1px solid #000000
+                border-top: none
+            @media screen and (min-width: $large-media)
+                width: 150px
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+.events-content
+    width: 95%
+    margin: auto
+    .credits
+        text-align: center
+        color: $grey
+        a
+            color: darken($grey, 15)
+            text-decoration: none
+            &:hover
+                text-decoration: underline
+    @media screen and (min-width: $medium-media)
+        width: 90%
+    @media screen and (min-width: $large-media)
+        width: 70%
+
+//------------------------------------------------------------------------------
+
+.events
+    width: 100%
+    margin: auto
+    overflow: hidden
+    h2
+        font-size: 2.5em
+        margin: 0 0 20px 0
+
+    .stock
+        background: linear-gradient($green, darken($green, 20))
+        &:hover
+            background: linear-gradient($green, lighten($green, 20))
+    .no-stock
+        background: linear-gradient($red, darken($red, 20))
+        &:hover
+            background: linear-gradient($red, lighten($red, 20))
+    .not-active
+        background: linear-gradient($grey, darken($grey, 20))
+        &:hover
+            background: linear-gradient($grey, lighten($grey, 20))
+    .not-finished
+        background: linear-gradient($orange, darken($orange, 20))
+        &:hover
+            background: linear-gradient($orange, lighten($orange, 20))
+    .in-progress
+        background: linear-gradient($lightblue, darken($lightblue, 20))
+        &:hover
+            background: linear-gradient($lightblue, lighten($lightblue, 20))
+    .last
+        background: linear-gradient($yellow, darken($yellow, 20))
+        &:hover
+            background: linear-gradient($yellow, lighten($yellow, 20))
+
+    .event
+        width: 48%
+        text-align: center
+        border: 1px solid #000000
+        margin: 1%
+        display: block
+        float: left
+        position: relative
+        overflow: hidden
+        box-shadow: 0 1px 1px 1px #888888
+        &:hover
+            transform: scale(1.02)
+            -moz-transform: scale(1.02)
+            -webkit-transform: scale(1.02)
+            -o-transform: scale(1.02)
+            -ms-transform: scale(1.02)
+
+        .event-name
+            font-family: 'Roboto', sans-serif
+            width: 100%
+            height: 230px
+            text-align: center
+            display: block
+            overflow: hidden
+            p
+                width: 90%
+                color: #000000
+                font-size: 2em
+                margin: 0
+                position: absolute
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
+
+        .event-description
+            width: 100%
+            text-align: left
+            position: absolute
+            bottom: 0
+            p
+                width: 100%
+                font-size: 0.8em
+                padding: 5px
+                background-color: rgba(0, 0, 0, 0.25)
+                border-top: 1px solid #000000
+                display: inline-block
+                margin: 0
+
+        .event-server
+            font-size: 0.8em
+            padding: 5px
+            border-radius: 5px
+            background-color: rgba(0, 0, 0, 0.2)
+            position: absolute
+            right: 7px
+            top: 7px
+
+    @media screen and (min-width: $small-media)
+        .event
+            width: 31.9333%
+            margin: 0.7%
+    @media screen and (min-width: $medium-media)
+        .event
+            width: 24%
+            margin: 0.5%
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+.content,
+.table-content
+    width: 95%
+    background-color: #FAFAFA
+    padding: 20px
+    margin: auto
+    margin-bottom: 30px
+    border: 1px solid #585858
+    box-shadow: 0 1px 1px 1px #888888
+    position: relative
+    overflow: hidden
+    h1,
+    h2,
+    h3
+        margin: 0 0 20px 0
+    h1
+        font-size: 2.5em
+        text-align: center
+    h2
+        font-size: 2em
+    h3
+        font-size: 1.5em
+    button
+        display: inline-block
+    @media screen and (min-width: $small-media)
+        width: 85%
+    @media screen and (min-width: $medium-media)
+        width: 60%
+    @media screen and (min-width: $large-media)
+        width: 45%
+
+.content
+    .record-content:last-child
+        margin: 0
+
+.table-content
+    @media screen and (min-width: $small-media)
+        width: 95%
+    @media screen and (min-width: $medium-media)
+        width: 70%
+    @media screen and (min-width: $large-media)
+        width: 55%
+
+//------------------------------------------------------------------------------
+
+.center-content
+    text-align: center
+
+.right-content
+    text-align: right
+
+.inline-content
+    width: 50%
+    display: inline-block
+
+.float-left-content
+    float: left
+
+.float-right-content
+    float: right
+
+.margin-right
+    margin-right: 10px
+
+.align-left
+    text-align: left
+
+//------------------------------------------------------------------------------
+
+.success-content
+    width: 100%
+    padding: 5px
+    text-align: center
+    margin-top: 20px
+    background-color: $green
+    border: 1px solid darken($green, 50)
+    display: inline-block
+
+.error-content
+    width: 100%
+    padding: 5px
+    margin-top: 20px
+    background-color: $red
+    border: 1px solid darken($red, 50)
+    display: inline-block
+    ul,
+    li
+        list-style: none
+
+.no-records-content, .no-stats-content
+    width: 100%
+    text-align: center
+    background-color: $orange
+    border: 1px solid darken($orange, 50)
+
+.form-error-content
+    background-color: lighten($red, 15)
+    border: 2px solid darken($red, 50)
+
+.record-content
+    font-size: 0.9em
+    padding: 10px
+    border: 1px solid #000000
+    margin-bottom: 20px
+    overflow: hidden
+    p
+        margin: 7px 0
+
+.event-description-content
+    width: 100%
+    font-size: 0.8em
+    padding: 7px 15px
+    background-color: #F5F6CE
+    border: 1px solid #585858
+    display: inline-block
+    p
+        white-space: pre-wrap
+
+.message-content
+    font-family: 'Roboto', sans-serif
+    .opacity
+        filter: opacity(60%)
+        &:hover
+            filter: opacity(100%)
+    p
+        white-space: pre-wrap
+    div
+        padding: 0 15px
+        position: relative
+        .message-title
+            font-size: 1.2em
+            font-weight: bold
+
+    .message-author
+        text-align: right
+        font-size: 0.8em
+        color: #585858
+        margin-top: 20px
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+.small-text
+    color: #848484
+    font-size: 0.65em
+    margin: 3px 0
+    padding: 0
+
+//------------------------------------------------------------------------------
+
+.close-edit
+    background-color: $red
+    border: 1px solid darken($red, 50)
+    position: absolute
+    right: 10px
+    top: 10px
+    span
+        font-size: 2em
+        color: darken($red, 50)
+        padding: 0 4px 2px 4px
+    &:hover
+        background-color: lighten($red, 15)
+
+//------------------------------------------------------------------------------
+
+.colors-content
+    position: absolute
+    right: 13px
+    div
+        width: 70px
+        height: 70px
+        display: inline-block
+        margin-right: 5px
+        &:hover
+            border: 4px solid #000000
+        &.active
+            border: 5px solid #000000
+
+.green
+    background-color: $green
+    border: 3px solid #173B0B
+.red
+    background-color: #F78181
+    border: 3px solid #3B0B0B
+.orange
+    background-color: $orange
+    border: 3px solid #3B240B
+.blue
+    background-color: #81BEF7
+    border: 3px solid #0B173B

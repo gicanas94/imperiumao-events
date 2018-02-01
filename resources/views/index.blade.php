@@ -115,14 +115,12 @@
             @if (count($stockEvents) > 0 && $notFinishedEvent == null && $inProgressEvent == null)
                 <hr>
                 <div class="events">
-                    <h2>Eventos con stock...</h2>
+                    <h2>Eventos disponibles...</h2>
                     @foreach ($stockEvents as $event)
                         <div class="event stock">
                             <a class="event-name" href="{{ route('startevent', $event->id) }}"><p>{{ $event->name }}</p></a>
                             <div class="event-description">
-                                @if ($event->stock == 0)
-                                    <p>Sin límite de stock</p>
-                                @else
+                                @if ($event->stock != 0)
                                     <p>Puede realizarse cada <b>{{ $event->stock }} días</b></p>
                                 @endif
                             </div>
@@ -134,7 +132,7 @@
             @if (count($noStockEvents) > 0)
                 <hr>
                 <div class="events">
-                    <h2>Eventos sin stock...</h2>
+                    <h2>Eventos no disponibles...</h2>
                     @foreach ($noStockEvents as $event)
                         <div class="event no-stock">
                             <a class="event-name" href=""><p>{{ $event->name }}</p></a>

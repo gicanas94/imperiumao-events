@@ -133,8 +133,10 @@ class IndexController extends Controller
     protected function getMonthEvents()
     {
         $currentMonth = date('m');
+        $currentYear = date('Y');
 
-        return Record::whereRaw('MONTH(created_at) = ?',[$currentMonth])
+        return Record::whereRaw('MONTH(created_at) = ?', $currentMonth)
+            ->whereRaw('YEAR(created_at) = ?', $currentYear)
             ->where('from_record', null)
             ->where('finished', 1)
             ->get();

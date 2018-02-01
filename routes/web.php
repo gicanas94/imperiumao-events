@@ -52,3 +52,6 @@ Route::get('messages/edit/{id}', ['as' => 'messages.edit', 'uses' => 'MessagesCo
 Route::post('messages/update/{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update'])->middleware(['power3']);
 Route::post('messages/state/{id}', ['as' => 'messages.state', 'uses' => 'MessagesController@state'])->middleware(['power3']);
 Route::post('messages/destroy/{id}', ['as' => 'messages.destroy', 'uses' => 'MessagesController@destroy'])->middleware(['power3']);
+
+Route::get('stats', 'StatsController@index')->name('stats')->middleware(['power1']);
+Route::post('stats', 'StatsController@index')->name('stats')->middleware(['power1']);

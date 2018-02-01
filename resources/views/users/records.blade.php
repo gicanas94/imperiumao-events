@@ -13,14 +13,14 @@
                 <label>Mes:</label>
                 <select class="records-select" name="month" required>
                     <option value="">-</option>
-                    @foreach ($months as $number => $name)
+                    @foreach (config('months') as $number => $name)
                         <option value="{{ $number }}">{{ $name }}</option>
                     @endforeach
                 </select>
                 <label>Año:</label>
                 <select class="records-select" name="year" required>
                     <option value="">-</option>
-                    @foreach ($years as $year)
+                    @foreach (config('years') as $year)
                         <option value="{{ $year }}">{{ $year }}</option>
                     @endforeach
                 </select>
@@ -48,7 +48,7 @@
             @else
                 <p class="small-text">Total de eventos: {{ count($records) }}</p>
                 @foreach ($records as $record)
-                    <div class="record-content" style="background-color: {{ $recordColors[rand(1, count($recordColors) - 1)] }}">
+                    <div class="record-content" style="background-color: {{ $serverColors[$record->server] }}">
                         <div class="center-content">
                             <h3><u>{{ strtoupper($record->event->name) }}</u></h3>
                         </div>
@@ -61,24 +61,12 @@
                                 @endforeach
                             </p>
                             <p><b>Participantes: </b>{{ $record->participants }}</p>
-                            <p><b>Caída de ítems: </b>
-                                @if ($record->drop == 1)
-                                    sí
-                                @else
-                                    no
-                                @endif
-                            </p>
+                            <p><b>Caída de ítems: </b>{{ $record->drop = 1 ? 'no' : 'sí' }}</p>
                             <p><b>Niveles: </b>{{ $record->levels }}</p>
                             <p><b>Inscripción: </b>{{ $record->inscription }}</p>
                             <p><b>Mapa/s: </b>{{ $record->maps }}</p>
                             <p><b>Organizadores: </b>{{ $record->organizers }}</p>
-                            <p><b>Organiza: </b>
-                                @if ($record->organizes == 1)
-                                    sí
-                                @else
-                                    no
-                                @endif
-                            </p>
+                            <p><b>Organiza: </b>{{ $record->organizes = 1 ? 'no' : 'sí' }}</p>
                         </div>
 
                         <div class="inline-content float-left-content">

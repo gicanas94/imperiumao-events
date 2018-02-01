@@ -17,6 +17,8 @@ class UsersController extends Controller
         '#BE81F7', '#DA81F5', '#F781F3', '#F781D8', '#F781BE', '#F7819F'
     ];
 
+    protected $serverColors = [1 => '#F78181', 2 => '#81BEF7', 3 => '#F3F781'];
+
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -163,20 +165,14 @@ class UsersController extends Controller
     {
         $user = User::where('id', $id)->withTrashed()->first();
         $title = 'Registros de ' . $user->username;
-        $recordColors = $this->recordColors;
-        $months = [1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
-                   5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
-                   9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre',
-                   12 => 'Diciembre'];
-
-        $years = [2017, 2018];
+        $serverColors = $this->serverColors;
 
         if ($request->isMethod('post')) {
             $records = $this->getRecords($request, $id);
         }
 
-        return view('users.records', compact('title', 'user', 'recordColors',
-                    'months', 'years', 'records'));
+        return view('users.records', compact('title', 'user', 'serverColors',
+                    'records'));
     }
 
     protected function getRecords($request, $id)
@@ -186,9 +182,12 @@ class UsersController extends Controller
         $query->where('user_id', $id);
         $query->whereMonth('created_at', '=', $request->month);
         $query->whereYear('created_at', '=', $request->year);
+        $query->where('created_at', '!=', 'updated_at');
 
         if ($request->input('server') != null) {
             $query->where('server', $request->input('server'));
+        } else {
+            $query->orderBy('server');
         }
 
         $records = $query->get();
