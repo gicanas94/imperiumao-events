@@ -52,7 +52,7 @@ form
 select
     width: 40%
 
-.records-select
+.records-select, .stats-select
     width: 20%
     margin-right: 10px
 
@@ -107,7 +107,7 @@ button,
     font-size: 0.8em
     border: 1px solid #000000
 
-.records-button
+.records-button, .stats-button
     background-color: $pink
     &:hover
         background-color: darken($pink, 15)
@@ -185,7 +185,7 @@ header
                 margin: 0 5px
         a
             padding: 10px
-            font-size: 1.2em
+            font-size: 1em
             text-decoration: none
             font-weight: bold
             color: #000000
@@ -194,16 +194,18 @@ header
             border-bottom: 1px solid #000000
             border-top: 1px solid #FFFFFF
             box-shadow: 0 1px 1px 1px #888888
+            text-overflow: ellipsis
+            overflow: hidden
+            white-space: nowrap
             &:hover
                 background-color: darken(#D8D8D8, 15)
             @media screen and (min-width: $medium-media)
-                width: 130px
-                padding: 20px 5px
+                width: 110px
+                padding: 15px 2px
                 border: 1px solid #000000
                 border-top: none
             @media screen and (min-width: $large-media)
-                width: 180px
-                padding: 20px 15px
+                width: 150px
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -419,7 +421,7 @@ header
     li
         list-style: none
 
-.no-records-content
+.no-records-content, .no-stats-content
     width: 100%
     text-align: center
     background-color: $orange
