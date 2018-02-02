@@ -54,7 +54,7 @@
                         <hr>
                         <div class="events">
                             <h2>Eventos en curso...</h2>
-                            <div class="event in-progress">
+                            <div class="event in-progress already-participated">
                                 <div class="event-server">
                                     @foreach (config('servers') as $id => $name)
                                         @if ($inProgressEvent->server == $id)

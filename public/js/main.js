@@ -134,7 +134,7 @@ $(document).ready(function() {
 
 //------------------------------------------------------------------------------
 
-    $('.no-stock, .not-active, .last').click(function(e) {
+    $('.no-stock, .not-active, .last, .already-participated').click(function(e) {
         e.preventDefault();
     });
 
