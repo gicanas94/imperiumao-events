@@ -8,11 +8,12 @@
             <p>De ser necesario, puedes crear uno.</p>
         @else
             <p>A continuación se encuentra el listado de todos los mensajes creados, ordenados por fecha de creación.</p>
-            <p>Debajo, puedes crear otro.</p>
+            <p>Debajo, puedes crear otro. Los mensajes activos son visualizados en INICIO.</p>
             <table>
                 <thead>
                     <th>FECHA</th>
                     <th>TÍTULO</th>
+                    <th>CREADOR</th>
                     <th>ACCIONES</th>
                 </thead>
                 <tbody>
@@ -20,26 +21,33 @@
                         <tr>
                             <td>{{ date('d/m/Y', strtotime($message->created_at)) }}</td>
                             <td class="message-td">{{ $message->title }}</td>
+                            <td>{{ $message->user->username }}</td>
 
                             <td>
-                                <form class="table-form" action="{{ route('messages.edit', $message->id) }}" method="get">
-                                    {!! csrf_field() !!}
-                                    <button class="small-button edit-button" type="submit">EDITAR</button>
-                                </form>
+                                @if ($message->user_id == auth()->id() || auth()->user()->power > 2)
+                                    <form class="table-form" action="{{ route('messages.edit', $message->id) }}" method="get">
+                                        {!! csrf_field() !!}
+                                        <button class="small-button edit-button" type="submit">EDITAR</button>
+                                    </form>
 
-                                <form class="table-form" action="{{ route('messages.state', $message->id) }}" method="post">
-                                    {!! csrf_field() !!}
-                                    @if ($message->active == 1)
-                                        <button id="deactivate" class="small-button deactivate-button" type="submit">DESACTIVAR</button>
-                                    @elseif ($message->active == 0)
-                                        <button id="activate" class="small-button activate-button" type="submit">ACTIVAR</button>
+                                    <form class="table-form" action="{{ route('messages.state', $message->id) }}" method="post">
+                                        {!! csrf_field() !!}
+                                        @if ($message->active == 1)
+                                            <button id="deactivate" class="small-button deactivate-button" type="submit">DESACTIVAR</button>
+                                        @elseif ($message->active == 0)
+                                            <button id="activate" class="small-button activate-button" type="submit">ACTIVAR</button>
+                                        @endif
+                                    </form>
+
+                                    @if (auth()->user()->power > 2)
+                                        <form class="table-form" action="{{ route('messages.destroy', $message->id) }}" method="post">
+                                            {!! csrf_field() !!}
+                                            <button class="small-button delete-button" type="submit">ELIMINAR</button>
+                                        </form>
                                     @endif
-                                </form>
-
-                                <form class="table-form" action="{{ route('messages.destroy', $message->id) }}" method="post">
-                                    {!! csrf_field() !!}
-                                    <button class="small-button delete-button" type="submit">ELIMINAR</button>
-                                </form>
+                                @else
+                                    -
+                                @endif
                             </td>
                         </tr>
                     @endforeach

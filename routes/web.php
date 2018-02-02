@@ -46,11 +46,11 @@ Route::get('progress/{id}', 'InProgressController@index')->name('progress')->mid
 Route::get('account', 'AccountController@index')->name('account');
 Route::post('account/update', ['as' => 'account.update', 'uses' => 'AccountController@update']);
 
-Route::get('messages', 'MessagesController@index')->name('messages')->middleware(['power3']);
-Route::post('messages', 'MessagesController@store')->middleware(['power3']);
-Route::get('messages/edit/{id}', ['as' => 'messages.edit', 'uses' => 'MessagesController@edit'])->middleware(['power3']);
-Route::post('messages/update/{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update'])->middleware(['power3']);
-Route::post('messages/state/{id}', ['as' => 'messages.state', 'uses' => 'MessagesController@state'])->middleware(['power3']);
+Route::get('messages', 'MessagesController@index')->name('messages')->middleware(['power1']);
+Route::post('messages', 'MessagesController@store')->middleware(['power1']);
+Route::get('messages/edit/{id}', ['as' => 'messages.edit', 'uses' => 'MessagesController@edit'])->middleware(['power1']);
+Route::post('messages/update/{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update'])->middleware(['power1']);
+Route::post('messages/state/{id}', ['as' => 'messages.state', 'uses' => 'MessagesController@state'])->middleware(['power1']);
 Route::post('messages/destroy/{id}', ['as' => 'messages.destroy', 'uses' => 'MessagesController@destroy'])->middleware(['power3']);
 
 Route::get('stats', 'StatsController@index')->name('stats')->middleware(['power1']);

@@ -12,7 +12,7 @@
                     <li><a href="{{ route('users') }}">USUARIOS</a></li>
                 @endif
 
-                @if (auth()->user()->power > 2)
+                @if (auth()->user()->power > 0)
                     <li><a href="{{ route('messages') }}">MENSAJES</a></li>
                 @endif
 

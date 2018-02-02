@@ -476,8 +476,8 @@ header {
   position: absolute;
   right: 13px; }
   .colors-content div {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     display: inline-block;
     margin-right: 5px; }
     .colors-content div:hover {
