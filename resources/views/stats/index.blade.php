@@ -90,18 +90,20 @@
                 </thead>
                 <tbody>
                     @foreach (config('servers') as $id => $name)
-                        @foreach ($stats['serverStats'] as $stat)
-                            <tr>
-                                <td>{{ $name }}</td>
-                                <td>
+                        <tr>
+                            <td>{{ $name }}</td>
+                            <td>
+                                @foreach ($stats['serverStats'] as $stat)
                                     @if ($stat->server == $id)
-                                        {{ $stat->count }}
-                                    @else
-                                        {{ 0 }}
+                                        {{ 0 + $stat->count }}
                                     @endif
-                                </td>
-                            </tr>
-                        @endforeach
+                                @endforeach
+
+                                @if (! array_key_exists($id - 1, $stats['serverStats']))
+                                    {{ 0 }}
+                                @endif
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
