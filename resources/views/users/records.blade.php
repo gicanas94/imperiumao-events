@@ -61,12 +61,12 @@
                                 @endforeach
                             </p>
                             <p><b>Participantes: </b>{{ $record->participants }}</p>
-                            <p><b>Caída de ítems: </b>{{ $record->drop = 1 ? 'no' : 'sí' }}</p>
+                            <p><b>Caída de ítems: </b>{{ $record->drop == 1 ? 'sí' : 'no' }}</p>
                             <p><b>Niveles: </b>{{ $record->levels }}</p>
                             <p><b>Inscripción: </b>{{ $record->inscription }}</p>
                             <p><b>Mapa/s: </b>{{ $record->maps }}</p>
                             <p><b>Organizadores: </b>{{ $record->organizers }}</p>
-                            <p><b>Organiza: </b>{{ $record->organizes = 1 ? 'no' : 'sí' }}</p>
+                            <p><b>Organiza: </b>{{ $record->organizes == 1 ? 'sí' : 'no' }}</p>
                         </div>
 
                         <div class="inline-content float-left-content">
