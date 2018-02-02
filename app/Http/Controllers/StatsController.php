@@ -50,7 +50,6 @@ class StatsController extends Controller
                             ->join('users', 'records.user_id', '=', 'users.id')
                             ->select('users.username', DB::raw('count(users.id) as count'))
                             ->where('records.finished', 1)
-                            ->where('from_record', null)
                             ->whereRaw('MONTH(records.created_at) = ?', $request->month)
                             ->whereRaw('YEAR(records.created_at) = ?', $request->year)
                             ->orderBy('count', 'desc')
