@@ -48,14 +48,14 @@
             @else
                 <p class="small-text">Total de eventos: {{ count($records) }}</p>
                 @foreach ($records as $record)
-                    <div class="record-content" style="background-color: {{ $serverColors[$record->server] }}">
+                    <div class="record-content" style="background-color: {{ $serverColors[$record->server_id] }}">
                         <div class="center-content">
                             <h3><u>{{ strtoupper($record->event->name) }}</u></h3>
                         </div>
                         <div class="inline-content float-left-content">
                             <p><b>Servidor: </b>
                                 @foreach (config('servers') as $id => $name)
-                                    @if ($record->server == $id)
+                                    @if ($record->server_id == $id)
                                         {{ $name }}
                                     @endif
                                 @endforeach

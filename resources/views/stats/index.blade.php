@@ -94,7 +94,7 @@
                             <td>{{ $name }}</td>
                             <td>
                                 @foreach ($stats['serverStats'] as $stat)
-                                    @if ($stat->server == $id)
+                                    @if ($stat->server_id == $id)
                                         {{ 0 + $stat->count }}
                                     @endif
                                 @endforeach

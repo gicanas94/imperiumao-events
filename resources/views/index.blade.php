@@ -164,7 +164,7 @@
                         <div class="event last">
                             <div class="event-server">
                                 @foreach (config('servers') as $id => $name)
-                                    @if ($record->server == $id)
+                                    @if ($record->server_id == $id)
                                         {{ $name }}
                                     @endif
                                 @endforeach

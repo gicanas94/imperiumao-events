@@ -60,12 +60,12 @@ class StatsController extends Controller
 
         // Eventos por servidor
         $serverStats = DB::table('records')
-                            ->select('records.server', DB::raw('count(records.server) as count'))
+                            ->select('records.server_id', DB::raw('count(records.server_id) as count'))
                             ->where('records.finished', 1)
                             ->where('from_record', null)
                             ->whereRaw('MONTH(records.created_at) = ?', $request->month)
                             ->whereRaw('YEAR(records.created_at) = ?', $request->year)
-                            ->groupBy('records.server')
+                            ->groupBy('records.server_id')
                             ->get();
 
         $serverStats = $serverStats->toArray();

@@ -41,7 +41,7 @@ class StartEventController extends Controller
                 'event_id' => $event->id,
                 'user_id' => auth()->user()->id,
                 'from_record' => $request->from_record,
-                'server' => $request->input('server'),
+                'server_id' => $request->input('server'),
                 'participants' => $request->participants,
                 'drop' => $request->drop,
                 'levels' => $request->levels,
@@ -56,7 +56,7 @@ class StartEventController extends Controller
             $eventName = $eventName['name'];
 
             foreach (config('servers') as $id => $name) {
-                if ($record->server == $id) {
+                if ($record->server_id == $id) {
                     $serverName = $name;
                 }
             }

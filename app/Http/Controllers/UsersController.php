@@ -185,9 +185,9 @@ class UsersController extends Controller
         $query->where('created_at', '!=', 'updated_at');
 
         if ($request->input('server') != null) {
-            $query->where('server', $request->input('server'));
+            $query->where('server_id', $request->input('server'));
         } else {
-            $query->orderBy('server');
+            $query->orderBy('server_id');
         }
 
         $records = $query->get();
