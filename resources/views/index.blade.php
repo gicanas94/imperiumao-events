@@ -36,7 +36,7 @@
                             <div class="event in-progress">
                                 <div class="event-server">
                                     @foreach (config('servers') as $id => $name)
-                                        @if ($inProgressEvent->server == $id)
+                                        @if ($inProgressEvent->server_id == $id)
                                             {{ $name }}
                                         @endif
                                     @endforeach
@@ -57,7 +57,7 @@
                             <div class="event in-progress already-participated">
                                 <div class="event-server">
                                     @foreach (config('servers') as $id => $name)
-                                        @if ($inProgressEvent->server == $id)
+                                        @if ($inProgressEvent->server_id == $id)
                                             {{ $name }}
                                         @endif
                                     @endforeach
@@ -77,7 +77,7 @@
                         <div class="event in-progress">
                             <div class="event-server">
                                 @foreach (config('servers') as $id => $name)
-                                    @if ($inProgressEvent->server == $id)
+                                    @if ($inProgressEvent->server_id == $id)
                                         {{ $name }}
                                     @endif
                                 @endforeach
@@ -99,7 +99,7 @@
                     <div class="event not-finished">
                         <div class="event-server">
                             @foreach (config('servers') as $id => $name)
-                                @if ($notFinishedEvent->server == $id)
+                                @if ($notFinishedEvent->server_id == $id)
                                     {{ $name }}
                                 @endif
                             @endforeach
