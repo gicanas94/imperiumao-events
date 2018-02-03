@@ -16,7 +16,7 @@
                 <br>
                 <select name="server" disabled>
                     @foreach (config('servers') as $id => $name)
-                        @if ($id == $record->server))
+                        @if ($record->server_id == $id))
                             <option value="{{ $id }}" selected>{{ $name }}</option>
                         @endif
                     @endforeach
