@@ -19,7 +19,7 @@ class EventIsFinished
     {
         $record = Record::find($request->id);
 
-        if ($record->finished != 0) {
+        if ($record->finished == 1 || $record->suspended == 1) {
             return back();
         }
 

@@ -21,14 +21,14 @@
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->power }}</td>
                             <td>
-                                @if (auth()->user()->power > 0)
+                                @if (auth()->user()->power >= 1)
                                     <form class="table-form" action="{{ route('users.records', $user->id) }}" method="get">
                                         {!! csrf_field() !!}
                                         <button class="small-button records-button" type="submit">REGISTROS</button>
                                     </form>
                                 @endif
 
-                                @if (auth()->user()->power > 2 && auth()->user()->power != $user->power)
+                                @if (auth()->user()->power >= 3 && auth()->user()->power > $user->power)
                                     <form class="table-form" action="{{ route('users.edit', $user->id) }}" method="get">
                                         {!! csrf_field() !!}
                                         <button class="small-button edit-button" type="submit">EDITAR</button>
