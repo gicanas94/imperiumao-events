@@ -22,7 +22,7 @@ $(document).ready(function() {
     	timeout = setTimeout(function() {
             box.trigger('stopRumble');
         }, 1000)
-    }, 5000);
+    }, 3000);
 
 //------------------------------------------------------------------------------
 
