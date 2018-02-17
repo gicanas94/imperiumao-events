@@ -2,6 +2,30 @@ $(document).ready(function() {
 
 //------------------------------------------------------------------------------
 
+    var boxes = [];
+
+    setInterval(function() {
+        $('.stock').each(function() {
+            boxes.push($(this));
+        });
+
+        var box = boxes[Math.floor(Math.random() * boxes.length)];
+
+        box.jrumble({
+            speed: 100
+
+        });
+
+        var timeout;
+    	clearTimeout(timeout);
+    	box.trigger('startRumble');
+    	timeout = setTimeout(function() {
+            box.trigger('stopRumble');
+        }, 1000)
+    }, 5000);
+
+//------------------------------------------------------------------------------
+
     $('#finishEventAlertDiv').hide();
 
 //------------------------------------------------------------------------------
