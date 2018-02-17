@@ -21,8 +21,8 @@ $(document).ready(function() {
     	box.trigger('startRumble');
     	timeout = setTimeout(function() {
             box.trigger('stopRumble');
-        }, 1000)
-    }, 3000);
+        }, 1300)
+    }, 2000);
 
 //------------------------------------------------------------------------------
 
