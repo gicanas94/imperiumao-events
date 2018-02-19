@@ -7,7 +7,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/main.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/light.css') }}">
         <link rel="shortcut icon" type="image/png" href="{{ asset('img/favicon.ico') }}">
     </head>
     <body>
