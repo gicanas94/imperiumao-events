@@ -184,7 +184,7 @@
             @else
                 <p class="center-content">Se {{ count($monthEvents) > 1 ? 'realizaron' : 'realizó' }} <b>{{ count($monthEvents) }}</b> {{ count($monthEvents) > 1 ? 'eventos' : 'evento' }} durante el transcurso del mes.</p>
             @endif
-            <p class="credits">Plataforma desarrollada por <a href="https://github.com/gicanas94">Gabriel Ignacio Cañas (Gankaro)</a> para <a href="http://www.imperiumao.com.ar">ImperiumAO</a>.</p>
+            <p class="credits">Plataforma desarrollada por <a href="https://github.com/gicanas94">Gankaro (Gabriel Ignacio Cañas)</a> para <a href="http://www.imperiumao.com.ar">ImperiumAO</a>.</p>
         </div>
     @endif
 @endsection
