@@ -3,6 +3,6 @@
         1 => 'Gotmul',
         2 => 'Eluret',
         3 => 'Radamek',
-        3 => 'Lakhar'
+        4 => 'Lakhar'
     ];
 ?>
