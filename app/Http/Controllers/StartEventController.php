@@ -15,7 +15,7 @@ class StartEventController extends Controller
 
     public function index($id)
     {
-        $title = 'Nuevo evento';
+        $title = 'Iniciar evento';
         $event = $this->getEvent($id);
 
         return view('startevent.index', compact('title', 'event'));

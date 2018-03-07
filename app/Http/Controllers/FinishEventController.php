@@ -15,7 +15,7 @@ class FinishEventController extends Controller
 
     public function index($id)
     {
-        $title = 'Evento sin finalizar';
+        $title = 'Finalizar evento';
         $record = Record::find($id);
 
         return view('finishevent.index', compact('title', 'record'));
