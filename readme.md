@@ -1,3 +1,3 @@
-# ImperiumAO Events
+# ImperiumAO Events app
 
-Event generation platform used by the administration of the popular argentine role-playing game, ImperiumAO.
+Event generation app used by the administration of the popular argentine role-playing game, ImperiumAO.
